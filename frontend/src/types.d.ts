@@ -1,5 +1,6 @@
 export interface RegisterMutation {
   username: string;
+  displayName: string;
   password: string;
 }
 
@@ -7,6 +8,7 @@ export interface User {
   _id: string;
   username: string;
   token: string;
+  displayName: string;
 }
 
 export interface RegisterResponse {

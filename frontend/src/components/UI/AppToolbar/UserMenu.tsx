@@ -29,7 +29,7 @@ const UserMenu: React.FC<Props> = ({user}) => {
         onClick={handleClick}
         color="inherit"
       >
-        Hello, {user.username}
+        Hello, {user.displayName}
       </Button>
       <Menu
         anchorEl={anchorEl}
@@ -38,7 +38,7 @@ const UserMenu: React.FC<Props> = ({user}) => {
         onClose={handleClose}
       >
         <MenuItem>Profile</MenuItem>
-        <MenuItem>My account</MenuItem>
+        <MenuItem>Create Post</MenuItem>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
     </>
