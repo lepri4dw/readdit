@@ -5,7 +5,7 @@ const rootPath = __dirname;
 const config = {
   rootPath,
   publicPath: path.join(rootPath, 'public'),
-  db: 'mongodb://localhost/project'
+  db: 'mongodb://localhost/readdit'
 };
 
 export default config;
