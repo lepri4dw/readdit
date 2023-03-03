@@ -61,31 +61,38 @@ const run = async () => {
   await Comment.create({
     user: David._id,
     post: Spiderman._id,
-    text: 'Every day is like this, lol'
+    text: 'Every day is like this, lol',
+    datetime: new Date()
   }, {
     user: Artem._id,
     post: Spiderman._id,
-    text: 'Wow!'
+    text: 'Wow!',
+    datetime: new Date()
   }, {
     user: David._id,
     post: Spiderman._id,
-    text: 'Of course it is lying'
+    text: 'Of course it is lying',
+    datetime: new Date()
   }, {
     user: Vasya._id,
     post: Spiderman._id,
-    text: 'It is true!'
+    text: 'It is true!',
+    datetime: new Date()
   }, {
     user: David._id,
     post: Marathon._id,
-    text: 'I also finished marathon in 1995, in was cool!'
+    text: 'I also finished marathon in 1995, in was cool!',
+    datetime: new Date()
   }, {
     user: Vasya._id,
     post: Marathon._id,
-    text: 'You are cool, man'
+    text: 'You are cool, man',
+    datetime: new Date()
   }, {
     user: Vasya._id,
     post: Marathon._id,
-    text: "I'm too lazy to run a marathon, lol"
+    text: "I'm too lazy to run a marathon, lol",
+    datetime: new Date()
   });
 
   await db.close();

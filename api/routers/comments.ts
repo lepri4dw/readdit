@@ -7,7 +7,7 @@ const commentsRouter = express.Router();
 
 commentsRouter.get('/', async (req, res, next) => {
   try {
-    const comments = await Comment.find({post: req.query.post}).populate({path: 'user', select: 'displayName'});
+    const comments = await Comment.find({post: req.query.post}).populate({path: 'user', select: 'displayName'}).sort([['datetime', -1]]);
     return res.send(comments);
   } catch (e) {
     return next(e);
@@ -21,7 +21,8 @@ commentsRouter.post('/', auth, async (req, res, next) => {
     const comment = new Comment({
       user: user._id,
       post: req.body.post,
-      text: req.body.text
+      text: req.body.text,
+      datetime: new Date(),
     });
 
     await comment.save();

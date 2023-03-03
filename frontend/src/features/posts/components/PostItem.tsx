@@ -11,6 +11,7 @@ interface Props {
   image: string | null;
   datetime: string;
   displayName: string;
+  numberOfComments: number;
 }
 
 const ImageCardMedia = styled(CardMedia)({
@@ -19,7 +20,7 @@ const ImageCardMedia = styled(CardMedia)({
   margin: '16px',
 });
 
-const PostItem: React.FC<Props> = ({_id, title,image, datetime, displayName}) => {
+const PostItem: React.FC<Props> = ({_id, title,image, datetime, displayName, numberOfComments}) => {
   let cardImage = noImageAvailable;
 
   if (image) {
@@ -33,8 +34,9 @@ const PostItem: React.FC<Props> = ({_id, title,image, datetime, displayName}) =>
         <Grid container alignItems="center" sx={{mb: 2}}>
           <ImageCardMedia image={cardImage} />
           <CardContent sx={{p: 2}}>
-            <Typography variant="h6">{dayjs(datetime).format('DD:MM:YYYY HH:mm')} by {displayName}</Typography>
+            <Typography variant="h6">{dayjs(datetime).format('DD.MM.YYYY HH:mm')} by {displayName}</Typography>
             <Typography variant="h5" component={Link} sx={{mt: 2}} to={'/posts/' + _id}>{title}</Typography>
+            <Typography variant="subtitle1">Number of comments: {numberOfComments}</Typography>
           </CardContent>
         </Grid>
       </Card>

@@ -47,10 +47,27 @@ export interface Post {
     displayName: string;
   }
   datetime: string;
+  numberOfComments: number;
 }
 
 export interface PostMutation {
   title: string;
   description: string;
-  image: string | null;
+  image: File | null;
+}
+
+export interface Comment {
+  _id: string;
+  post: string;
+  text: string;
+  user: {
+    _id: string;
+    displayName: string;
+  };
+  datetime: string;
+}
+
+export interface CommentMutation {
+  text: string;
+  post: string;
 }

@@ -24,6 +24,10 @@ const CommentSchema = new Schema({
   text: {
     type: String,
     required: true,
+  },
+  datetime: {
+    type: Date,
+    required: true
   }
 });
 

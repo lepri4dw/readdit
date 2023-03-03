@@ -4,15 +4,17 @@ import {persistReducer, persistStore} from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import {FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE} from 'redux-persist/es/constants';
 import {postsReducer} from "../features/posts/postsSlice";
+import {commentsReducer} from "../features/comments/commentsSlice";
 
 const usersPersistConfig = {
-  key: 'project:users',
+  key: 'readdit:users',
   storage,
   whitelist: ['user'],
 };
 
 const rootReducer = combineReducers({
   posts: postsReducer,
+  comments: commentsReducer,
   users: persistReducer(usersPersistConfig, usersReducer),
 });
 

@@ -1,8 +1,7 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import axiosApi from "../../axiosApi";
-import {Post, PostMutation, ValidationError} from "../../types";
+import {Post, PostMutation} from "../../types";
 import {RootState} from "../../app/store";
-import {isAxiosError} from "axios";
 
 export const fetchPosts = createAsyncThunk(
   'posts/fetchAll',
@@ -20,22 +19,22 @@ export const fetchOnePost = createAsyncThunk<Post, string>(
   }
 );
 
-export const createPost = createAsyncThunk<void, PostMutation, {state: RootState, rejectValue: ValidationError}>(
+export const createPost = createAsyncThunk<void, PostMutation, {state: RootState}>(
   'posts/create',
-  async (postMutation, {getState, rejectWithValue}) => {
-    try {
-      const user = getState().users.user;
+  async (postMutation, {getState}) => {
+    const user = getState().users.user;
 
-      if (user) {
-        await axiosApi.post('/posts', {
-          ...postMutation,
-          user: user._id
-        }, {headers: {'Authorization': user.token}})
-      }
-    } catch (e) {
-        if (isAxiosError(e) && e.response && e.response.status === 400) {
-          return rejectWithValue(e.response.data as ValidationError);
+    if (user) {
+      const formData = new FormData();
+      const keys = Object.keys(postMutation) as (keyof PostMutation)[];
+
+      keys.forEach(key => {
+        const value = postMutation[key];
+
+        if (value !== null) {
+          formData.append(key, value);
         }
-        throw e;
+      });
+      await axiosApi.post('/posts', formData, {headers: {'Authorization': user.token}});
     }
 });

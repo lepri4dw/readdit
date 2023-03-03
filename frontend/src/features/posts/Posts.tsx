@@ -23,7 +23,7 @@ const Posts = () => {
       </Grid>
       {loading ? <CircularProgress/> : <Grid item container spacing={2}>
         {posts.map(post => (
-          <PostItem key={post._id} _id={post._id} title={post.title} image={post.image} datetime={post.datetime} displayName={post.user.displayName}/>
+          <PostItem key={post._id} _id={post._id} title={post.title} image={post.image} datetime={post.datetime} displayName={post.user.displayName} numberOfComments={post.numberOfComments}/>
         ))}
       </Grid>}
     </Grid>

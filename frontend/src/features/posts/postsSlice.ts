@@ -1,4 +1,4 @@
-import {Post, ValidationError} from "../../types";
+import {Post} from "../../types";
 import {createSlice} from "@reduxjs/toolkit";
 import {RootState} from "../../app/store";
 import {createPost, fetchOnePost, fetchPosts} from "./postsThunks";
@@ -9,7 +9,6 @@ interface PostsState{
   onePost: Post | null,
   fetchOnePostLoading: boolean,
   createLoading: boolean,
-  postError: ValidationError | null;
 }
 
 const initialState: PostsState = {
@@ -18,7 +17,6 @@ const initialState: PostsState = {
   onePost: null,
   fetchOnePostLoading: false,
   createLoading: false,
-  postError: null,
 }
 
 const postsSlice = createSlice({
@@ -49,14 +47,12 @@ const postsSlice = createSlice({
     });
 
     builder.addCase(createPost.pending, (state) => {
-      state.postError = null;
       state.createLoading = true;
     });
     builder.addCase(createPost.fulfilled, (state) => {
       state.createLoading = false;
     });
-    builder.addCase(createPost.rejected, (state, {payload: error}) => {
-      state.postError = error || null;
+    builder.addCase(createPost.rejected, (state) => {
       state.createLoading = false;
     });
   }
@@ -69,4 +65,3 @@ export const selectPostsFetching = (state: RootState) => state.posts.fetchLoadin
 export const selectOnePost = (state: RootState) => state.posts.onePost;
 export const selectOnePostFetching = (state: RootState) => state.posts.fetchOnePostLoading;
 export const selectPostCreating = (state: RootState) => state.posts.createLoading;
-export const selectCreatePostError = (state: RootState) => state.posts.postError;

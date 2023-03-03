@@ -4,7 +4,7 @@ import {selectPostCreating} from "../postsSlice";
 import {PostMutation} from "../../../types";
 import {createPost} from "../postsThunks";
 import {useNavigate} from "react-router-dom";
-import {Grid, TextField} from "@mui/material";
+import {Grid, TextField, Typography} from "@mui/material";
 import FileInput from "../../../components/UI/FileInput/FileInput";
 import {LoadingButton} from "@mui/lab";
 
@@ -20,8 +20,12 @@ const PostForm = () => {
 
   const submitFormHandler = async (e: React.FormEvent) => {
     e.preventDefault();
-    await dispatch(createPost(state));
-    navigate('/');
+    try {
+      await dispatch(createPost(state)).unwrap();
+      navigate('/')
+    } catch (e) {
+
+    }
   };
 
   const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -43,6 +47,9 @@ const PostForm = () => {
       onSubmit={submitFormHandler}
     >
       <Grid container direction="column" spacing={2}>
+        <Grid item xs>
+          <Typography variant="h5">New post</Typography>
+        </Grid>
         <Grid item xs>
           <TextField
             id="title" label="Title"
@@ -69,7 +76,9 @@ const PostForm = () => {
         </Grid>
 
         <Grid item xs>
-          {<LoadingButton loadingIndicator="Loading…" loading={loading} type="submit" color="primary" variant="contained" disabled={!state.title || (!state.image && !state.description)}>Create</LoadingButton>}
+          {<LoadingButton
+            loadingIndicator="Loading…" loading={loading} type="submit" color="primary"
+            variant="contained" disabled={!state.title || (!state.image && !state.description)}>Create</LoadingButton>}
         </Grid>
       </Grid>
     </form>

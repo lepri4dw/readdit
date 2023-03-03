@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { User } from '../../../types';
-import { Button, Menu, MenuItem } from '@mui/material';
-import { useAppDispatch } from '../../../app/hooks';
+import {Button, CircularProgress, Menu, MenuItem} from '@mui/material';
+import {useAppDispatch, useAppSelector} from '../../../app/hooks';
 import { logout } from '../../../features/users/usersThunks';
 import {Link} from "react-router-dom";
+import {selectLogoutLoading} from "../../../features/users/usersSlice";
 
 interface Props {
   user: User;
@@ -12,6 +13,7 @@ interface Props {
 const UserMenu: React.FC<Props> = ({user}) => {
   const dispatch = useAppDispatch();
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+  const logoutLoading = useAppSelector(selectLogoutLoading);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -39,8 +41,8 @@ const UserMenu: React.FC<Props> = ({user}) => {
         onClose={handleClose}
       >
         <MenuItem>Profile</MenuItem>
-        <MenuItem component={Link} to="new-post">Create Post</MenuItem>
-        <MenuItem onClick={handleLogout}>Logout</MenuItem>
+        <MenuItem component={Link} to="new-post" >Create Post</MenuItem>
+        <MenuItem onClick={handleLogout} disabled={logoutLoading}>{logoutLoading && <CircularProgress size={20} sx={{mr: 1}}/>}Logout</MenuItem>
       </Menu>
     </>
   );

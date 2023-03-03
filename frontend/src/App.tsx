@@ -23,6 +23,7 @@ function App() {
             <Route path="/login" element={<Login/>}/>
             <Route path="/posts/:id" element={<FullPost/>}/>
             <Route path="/new-post" element={<PostForm/>}/>
+            <Route path="/*" element={<h1>Not Found! This page does not exist!</h1>}/>
           </Routes>
         </Container>
       </main>
