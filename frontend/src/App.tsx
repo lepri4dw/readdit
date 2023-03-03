@@ -4,6 +4,9 @@ import {Container, CssBaseline} from "@mui/material";
 import {Route, Routes} from "react-router-dom";
 import Register from "./features/users/Register";
 import Login from "./features/users/Login";
+import Posts from "./features/posts/Posts";
+import FullPost from "./features/posts/components/FullPost";
+import PostForm from "./features/posts/components/PostForm";
 
 function App() {
   return (
@@ -15,8 +18,11 @@ function App() {
       <main>
         <Container maxWidth="xl">
           <Routes>
+            <Route path="/" element={<Posts/>}/>
             <Route path="/register" element={<Register/>}/>
             <Route path="/login" element={<Login/>}/>
+            <Route path="/posts/:id" element={<FullPost/>}/>
+            <Route path="/new-post" element={<PostForm/>}/>
           </Routes>
         </Container>
       </main>
